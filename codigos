@@ -1,0 +1,299 @@
+   
+Guia de Configuração do Znode
+ISENÇÃO DE RESPONSABILIDADE: Este guia pressupõe um conhecimento básico de Putty e Linux e confortável para lidar com comandos de linha de comando. Não nos responsabilizamos por qualquer perda de uso deste guia sem o conhecimento prévio. Não continue com este guia se tiver alguma dúvida e recorra a um provedor Znode.
+
+ 
+
+Lista de Provedores de Znode (organizados em ordem alfabética)
+Esses provedores nos informaram que estão hospedando os serviços de hospedagem do Zcoin Znode. Estes são recomendados se você não tiver o conhecimento técnico para seguir estas instruções.
+
+Nós não endossamos ou recomendamos qualquer provedor Znode em particular (mesmo aqueles executados por membros da equipe) e nenhum deles é afiliado ao Zcoin de qualquer maneira.
+
+Faça sua própria diligência ao selecioná-los. Alguns provedores de Znode podem ser executados por membros da equipe em sua capacidade pessoal, mas não devem ser considerados como fornecedores oficiais da Zcoin. Desistiremos de provedores denunciados como golpes ou agimos irresponsavelmente, mas não nos responsabilizamos por listá-los nesta lista, pois é impossível policiá-los.
+
+Você só precisa fornecer seu endereço no qual depositou seu XZC ou o ID da transação. Alguns provedores podem pedir a chave que você gerou com o znode genkey (de qualquer forma, tudo bem). Você NUNCA precisará depositar 1000 XZC para eles ou para um endereço fora de sua carteira de PC / mac ou para fornecer qualquer uma de suas chaves privadas (obtidas por meio de dumpprivkey).
+
+CoinWatch
+HostingKing   de perrykmm # 2742 (Discórdia)
+Masternodehosting (por Flare)
+Serviço Znode de MrMonotone
+Node-vps por Fabian
+PDABase (pequeno provedor de Reuben e seu amigo Hui Sing para atender principalmente amigos)
+zednode
+Começando
+Se você está hospedando com um provedor de Znode ou fazendo isso por conta própria, certifique-se de ter a carteira Zcoin mais recente e você já obteve seu 1000 XZC  (de preferência um pouco mais para cobrir as taxas quando você está transferindo ao redor). As etapas 1 e 2 ainda são necessárias, mesmo se você estiver indo para um provedor Znode.
+
+Se você estiver atualizando de uma carteira que seja mais antiga que a versão 13.5 da carteira, o cliente solicitará uma reindexação. Isso levará algum tempo (0,5 a 2 horas), dependendo da velocidade do seu computador.
+
+O vídeo abaixo deve ser visto em conjunto com o guia de configuração e não sozinho ou pode não fazer sentido.
+
+
+Etapa 1: criptografar e fazer backup de sua carteira
+Se você ainda não fez isso, certifique-se de criptografar sua carteira!
+
+Vá para Configurações> Criptografar Carteira.
+
+
+
+Depois de ter criptografado, também é recomendável fazer um backup via Arquivo> Carteira de Backup . Recomenda-se armazenar esta carteira em uma unidade física ou pen drive separada. O wallet.dat é criptografado, portanto, mesmo que o wallet.dat seja exposto, se sua senha for longa o suficiente, ela ficará segura.
+
+Por favor, não esqueça sua senha! Ninguém pode ajudá-lo se você perder sua senha. 
+
+Passo 2: Gere uma chave Znode e deposite seu 1000 XZC
+Embora não seja uma boa idéia vazar sua chave Znode, mesmo que esta informação esteja fora, seu 1000 XZC está seguro. Se um terceiro se apossar desta chave Znode, tudo o que pode fazer é iniciar / parar o seu Znode.
+
+O seu endereço de depósito é onde você depositará seu 1000 XZC.
+
+Clique em Ajuda> Janela de Depuração e insira os seguintes comandos.
+
+znode genkey
+
+Isso gera a chave Znode. Copie-o no Bloco de Notas ou em um arquivo txt.
+
+getaccountaddress ZN1
+
+Isso gera o endereço de depósito Znode para o seu 1000 XZC. Copie-o para o mesmo bloco de notas ou arquivo txt. Se você tiver vários Znodes, também poderá criar endereços adicionais e chaves znode exclusivas para cada um deles.
+
+znode genkey
+
+getaccountaddress ZN2
+
+znode genkey
+
+getaccountaddress ZN3
+
+E assim por diante.
+
+Envie  EXATAMENTE 1000 XZC  para o endereço de depósito Znode que você acabou de criar em uma única transação. Isso significa que não envie 500 e depois mais 500!  Tem que estar em uma única transação! Não assinale subtrair a taxa do valor. 
+
+Não é recomendado enviá-lo diretamente de uma bolsa, pois eles podem deduzir certas taxas de retirada, resultando em menos de 1000 XZC nessa transferência.
+
+Agora você precisará aguardar 6 confirmações (aproximadamente 1 hora) para que essa transação seja válida como seu depósito Znode. Podemos prosseguir com os outros passos nesse meio tempo!
+
+Notas especiais apenas para aqueles que estão criando mais de um Znode:
+Se você estiver fazendo mais do que o Znode, um cuidado especial é necessário para garantir que você esteja criando depósitos corretamente. Você não quer quebrar o depósito anterior de 1000 XZC que acabou de ganhar, tirando fundos desse depósito.
+
+Para fazer isso, ative o controle de moedas acessando Configurações> Opções> Carteira e clique em Ativar recursos de controle de moedas. Isso permitirá um controle refinado dos fundos que você está usando ao fazer seu próximo depósito de 1000 XZC.
+
+
+
+Em seguida, vá para a guia Enviar e você verá os Recursos de controle de moeda . Clique em Entradas . Você deve ver o seu depósito de 1000 XZC lá. Clique com o botão direito e clique em Bloquear Não Usado . Isso significa que, ao fazer seu novo depósito, sua carteira não tocará nesses fundos.
+
+
+
+Depois de ter feito isso, você pode fazer o próximo depósito de 1000 XZC para o seu próximo Znode. Repita isso toda vez que você fez um novo Znode.
+
+Você sempre pode verificar se está fazendo isso corretamente indo até Help> Debug Window e digitando as saídas do znode  que exibiriam todos os depósitos aptos do znode.
+
+Etapa 3: Crie um arquivo znode.conf no seu próprio PC
+Agora precisamos descobrir o ID da transação e o índice do seu depósito Znode. Para fazer isso, vá para Help> Debug Window type
+
+znode outputs
+
+Você receberá uma saída parecida com esta:
+
+{ "d6fd38868bb8f9958e34d5155437d009b72dfd33fc28874c87fd42e51c0f74fdb" : "0", }
+A primeira parte é o seu ID de Transação e o segundo número (normalmente 0 ou 1) é o Índice .
+
+Agora crie um arquivo znode.conf no diretório de dados do Zcoin .
+
+No Windows, isso está localizado em % appdata% / zcoin (digite isso no Windows Explorer), a menos que você tenha alterado o diretório de instalação. No Mac, isso está em seu $ HOME / Library / Application Support / zcoin / e no Linux normalmente é sua pasta $ HOME / .zcoin.
+
+Abra-o para editá-lo e insira o seguinte formato.
+
+LABEL IP:8168 ZNODEPRIVKEY TXID INDEX​
+
+LABEL:  Qualquer nome que você queira chamar seu Znode em uma palavra. Por exemplo, ZN1 
+IP:  seu IP VPS do Znode e porta (8168 para mainnet e 18168 para testnet) 
+ZNODEPRIVKEY:  Essa é a chave znode obtida da digitação
+znode genkey
+anterior. 
+TXID:  Este é o ID da Transação para a transação na qual você obteve o seu 1000 XZC depositado, o qual você obteve apenas agora através do 
+znode outputs
+ comando. 
+ÍNDICE:  Este é o índice de sua transação que você obteve apenas agora com o 
+znode outputs
+ comando.
+
+Para tornar as coisas mais claras, vamos mostrar um exemplo inventado de como um znode.conf seria. Este exemplo mostra dois Znodes.
+
+ZN1 51.52.53.54:8168 XrxSr3fXpX3dZcU7CoiFuFWqeHYw83r28btCFfIHqf6zkMp1PZ4 d6fd38868bb8f9958e34d5155437d009b72dfd33fc28874c87fd42e51c0f74fdb 0
+ZN2 45.32.123.9:8168 7ER1fSLSDkmQmXX5i2rG7BUQFt8YeEfsNE6CDyjefFX2ZjgLEcJ ce4134046f75d9a7d0b2e86fb26e208095a9995eff5e169a4e2e047226120351 0
+
+Depois de inserir os detalhes necessários,  salve seu znode.conf.  Reinicie sua carteira Zcoin  para que as novas configurações sejam necessárias.
+
+Nota para múltiplos Znodes:
+
+Se você estiver criando mais de um Znode, o comando “ znode outputs ” retornará vários hashes e índices de transação. Apenas determine qual é o novo, comparando-o com o seu znode.conf existente e veja qual não está nele.
+
+Você adicionará os novos detalhes correspondentes em uma nova linha no znode.conf . Lembre-se de reiniciar sua carteira do Zcoin sempre que editar seu arquivo znode.conf.
+
+Etapa 4: obter um VPS
+Existem muitos fornecedores para escolher lá fora.
+
+Oceano Digital
+Linode
+Vultr
+OVH
+Selecione um pacote VPS que atenda aos requisitos mínimos:
+
+1 gig de RAM (2G recomendado)
+Mais de 20 GB de espaço em disco
+Lembre-se de que a confiabilidade é mais importante que o preço. Se o seu Znode ficar off-line, você perderá potencialmente pagamentos que seriam mais do que o custo do seu VPS.
+
+Escolha o Ubuntu 16.04 64-bit e instale-o.
+
+Uma vez feito isso, o provedor VPS deve fornecer um nome de usuário (geralmente root) e uma senha. Use um cliente SSH como o Putty ou, se o provedor VPS fornecer, abra uma janela do console.
+
+Passo 5: Configurar o seu VPS
+Criando um novo usuário
+É sempre uma boa prática criar um novo usuário para executar o Znode para que o aplicativo Znode não seja executado com acesso root.
+
+Faça o login como root.
+
+Crie um novo usuário com o seguinte comando, substituindo <username> por um nome de usuário de sua escolha. 
+adduser <username>
+
+Você será solicitado por uma senha. Entre e confirme usando uma nova senha (diferente da sua senha root) e guarde-a em um local seguro.
+
+Você também verá solicitações de informações do usuário, mas isso pode ser deixado em branco.
+
+Uma vez que o usuário tenha sido criado, vamos adicioná-lo ao grupo sudo para que ele possa executar comandos como root. Apenas comandos / aplicativos executados com o sudo serão executados com privilégios de root, enquanto outros serão executados com privilégios normais. 
+usermod -aG sudo <username>
+
+Agora, enquanto ainda como root, nós atualizaremos o sistema do repositório de pacotes do Ubuntu.
+apt update
+
+apt upgrade
+
+Instalando um Firewall
+Estamos instalando o UFW (firewall descomplicado) para proteger ainda mais seu servidor. Isso é opcional, mas altamente recomendado.
+
+Enquanto ainda estiver no usuário root (ou, alternativamente, você pode sudo dentro do seu usuário recém-criado). 
+apt install ufw
+
+(pressione Y e Enter para confirmar)
+
+A próxima etapa abre a porta 8168, que é necessária para o seu Znode se comunicar.
+ufw allow ssh/tcp
+
+ufw limit ssh/tcp
+
+ufw allow 8168/tcp
+
+ufw logging on
+
+ufw enable
+
+(pressione Y e Enter para confirmar)
+
+Você agora tem uma configuração de firewall!
+
+Alocando um arquivo de troca (opcional se o seu VPS / servidor tiver 2 GB ou mais de RAM)
+Alocar um arquivo de troca pode proteger seu servidor contra erros de falta de memória caso sua RAM seja totalmente utilizada. Este passo é opcional se o seu servidor VPS / remoto tiver muita memória RAM. Geralmente não é necessário se você tiver 2 GB de RAM ou mais. Pode funcionar com 1 gb de RAM também.
+
+Swap  é uma área em um disco rígido que foi designada como um local onde o sistema operacional pode armazenar temporariamente dados que não podem mais manter na RAM. Basicamente, isso lhe dá a capacidade de aumentar a quantidade de informações que seu servidor pode manter em sua “memória” em funcionamento, com algumas ressalvas. O espaço de troca no disco rígido será usado principalmente quando não houver espaço suficiente na RAM para armazenar os dados do aplicativo em uso.
+
+As informações gravadas no disco serão significativamente mais lentas do que as informações armazenadas na RAM, mas o sistema operacional preferirá continuar executando os dados do aplicativo na memória e usar o swap para os dados mais antigos. No geral, ter espaço de troca como um retorno para quando a RAM do sistema está esgotada pode ser uma boa rede de segurança contra exceções de falta de memória nos sistemas.
+fallocate -l 4G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+nano /etc/fstab
+
+Adicione a seguinte linha no final do arquivo (pressione tab para separar cada palavra / número 
+/swapfile none swap sw 0 0
+
+e pressione Ctrl + X para fechar o editor, depois Y e Enter salvam o arquivo. 
+Em seguida, reinicie o servidor.
+reboot now
+
+Seu VPS está pronto para operação.
+
+Passo 6: Instalando o Zcoin no seu VPS
+Depois de efetuar login no novo usuário criado na etapa 5, digite o seguinte para baixar o pacote mais recente do Zcoin Linux .
+
+cd ~
+
+wget https://github.com/zcoinofficial/zcoin/releases/download/v0.13.5.7/zcoin-qt-0.13.5.7-linux64.tar.gz
+
+tar xzvf zcoin-qt-0.13.5.7-linux64.tar.gz 
+
+Crie um novo arquivo de configuração para o seu Znode.
+
+Tipo
+
+mkdir ~/.zcoin
+
+nano ~/.zcoin/zcoin.conf
+
+Isso criará um novo diretório e também abrirá um novo arquivo de texto chamado zcoin.conf em um editor de texto chamado nano.
+
+Nesse novo arquivo, digite o seguinte e altere as partes em negrito para corresponder aos seus detalhes reais. O nome de usuário e a senha do rpc podem ser o que você quiser (tente aumentar um pouco o tempo).
+
+O ZNODEPRIVKEY é do que você obteve na etapa 2.
+
+#----
+rpcuser=ANYUSERNAME
+rpcpassword=ANYPASSWORD
+rpcallowip=127.0.0.1
+#----
+listen=1
+server=1
+daemon=1
+logtimestamps=1
+maxconnections=64
+txindex=1
+#----
+znode=1
+externalip=YOURZNODEIP:8168
+znodeprivkey=ZNODEPRIVKEY
+
+Pressione Ctrl-X para salvar e pressione Y para confirmar.
+
+Digite os seguintes comandos para iniciar o seu daemon zcoind e deixá-lo sincronizar isso levará algumas horas.
+
+cd ~/zcoin-0.13.5/bin
+
+./zcoind -daemon
+
+Vá fazer um café ou veja outra coisa!
+
+Você sempre pode verificar o status da sincronização digitando
+
+./zcoin-cli getinfo
+
+e verifique até onde o número do bloco foi em relação ao nosso Block Explorer . Depois de sincronizado, agora é hora de iniciar o seu Znode!
+
+Passo 7: Comece o seu Znode
+Agora vamos voltar para a sua carteira PC local (não o Znode). Espero que você já tenha obtido 6 confirmações. Se não, espere um pouco mais!
+
+Lembre-se de que se você não tiver reiniciado sua carteira local depois de criar o znode.conf , reinicie sua carteira.
+
+Depois de subir novamente, vá para a aba Znodes . Se você fez isso corretamente, ele deve mostrar seus Znodes na aba Meus Znodes . Clique em Start-Missing, que inicia todos os seus Znodes que foram listados no seu znode.conf.
+
+Seu Znode deve mostrar o status PRE_ENABLED agora e, após cerca de 15 minutos, deve fazer a transição para ENABLED . Se a transição for EXPIRADA , pode haver algo errado com sua configuração, verifique novamente novamente.
+
+
+
+Passo 8: Obtendo seus pagamentos de Znode
+Seu primeiro pagamento pode levar uma semana ou mais para ser exibido, mas depois deve ocorrer uma vez a cada alguns dias. Como estimativa, divida o número total de Znodes por 144 e isso levará aproximadamente o intervalo de seus pagamentos em dias. Por exemplo, existem 1000 Znodes, o pagamento seria 1000/144 = 6,94 dias. Quanto mais Znodes houver, mais longa será a fila e aguardará entre os pagamentos.
+
+NOTA IMPORTANTE:  Toda vez que você inicia um znode,  ele redefine seu lugar na fila de pagamento, atrasando os pagamentos.  Portanto, embora também exista um
+znode start-many
+ comando “ ”, isso não é recomendado, já que também reiniciaria os nós que não apresentam problemas. Se um de seus servidores znode tiver um problema (por exemplo, o servidor foi reinicializado), apenas reinicie os znodes que estão inativos usando o
+znode start-missing
+ comando e não o 
+start-many
+ comando.
+
+Estamos criando ferramentas para monitorar melhor os pagamentos e o status do Znode.
+
+
+
+
+Junte-se a nós em discórdia para se manter atualizado em nosso projeto. Pergunte-nos qualquer dúvida e saiba mais sobre o nosso programa de recompensas de bugs.

@@ -1,0 +1,33 @@
+
+Guia de Configuração do Znode
+ISENÇÃO DE RESPONSABILIDADE: Este guia pressupõe um conhecimento básico de Putty e Linux e confortável para lidar com comandos de linha de comando. Não nos responsabilizamos por qualquer perda de uso deste guia sem o conhecimento prévio. Não continue com este guia se tiver alguma dúvida e recorra a um provedor Znode.
+
+
+ 
+
+Lista de Provedores de Znode (organizados em ordem alfabética)
+Esses provedores nos informaram que estão hospedando os serviços de hospedagem do Zcoin Znode. Estes são recomendados se você não tiver o conhecimento técnico para seguir estas instruções.
+
+Nós não endossamos ou recomendamos qualquer provedor Znode em particular (mesmo aqueles executados por membros da equipe) e nenhum deles é afiliado ao Zcoin de qualquer maneira.
+
+Faça sua própria diligência ao selecioná-los. Alguns provedores de Znode podem ser executados por membros da equipe em sua capacidade pessoal, mas não devem ser considerados como fornecedores oficiais da Zcoin. Desistiremos de provedores denunciados como golpes ou agimos irresponsavelmente, mas não nos responsabilizamos por listá-los nesta lista, pois é impossível policiá-los.
+
+Você só precisa fornecer seu endereço no qual depositou seu XZC ou o ID da transação. Alguns provedores podem pedir a chave que você gerou com o znode genkey (de qualquer forma, tudo bem). Você NUNCA precisará depositar 1000 XZC para eles ou para um endereço fora de sua carteira de PC / mac ou para fornecer qualquer uma de suas chaves privadas (obtidas por meio de dumpprivkey).
+
+CoinWatch
+HostingKing   de perrykmm # 2742 (Discórdia)
+Masternodehosting (por Flare)
+Serviço Znode de MrMonotone
+Node-vps por Fabian
+PDABase (pequeno provedor de Reuben e seu amigo Hui Sing para atender principalmente amigos)
+zednode
+Começando
+Se você está hospedando com um provedor de Znode ou fazendo isso por conta própria, certifique-se de ter a carteira Zcoin mais recente e você já obteve seu 1000 XZC  (de preferência um pouco mais para cobrir as taxas quando você está transferindo ao redor). As etapas 1 e 2 ainda são necessárias, mesmo se você estiver indo para um provedor Znode.
+
+Se você estiver atualizando de uma carteira que seja mais antiga que a versão 13.5 da carteira, o cliente solicitará uma reindexação. Isso levará algum tempo (0,5 a 2 horas), dependendo da velocidade do seu computador.
+
+O vídeo abaixo deve ser visto em conjunto com o guia de configuração e não sozinho ou pode não fazer sentido.
+
+          
+          
+          
